@@ -408,10 +408,12 @@ async def receive_sections(
             return
 
         # salva resposta
-        print('Pergunta:', pergunta)
+        # print('Pergunta:', pergunta)
         session["respostas"][
             pergunta["step"]
         ] = resposta
+
+        # print(f"Respostas: ",  session["respostas"])
 
         # terminou protocolo?
         if pergunta["proximo_step"] == 999:

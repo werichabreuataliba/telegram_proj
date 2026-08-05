@@ -165,10 +165,7 @@ async def etapas(step, question, session, update):
 
         session["step"] = 5
 
-
-def generate_summary(
-    session
-):
+def generate_summary(session):
 
     llm = ChatOpenAI(
         model="gpt-3.5-turbo",
@@ -176,24 +173,94 @@ def generate_summary(
     )
 
     prompt = f"""
-Você é uma assistente médica.
+Você é um médico especialista responsável pela triagem de pacientes.
 
-Crie um resumo da consulta.
+Sua tarefa é analisar o quadro clínico utilizando:
 
-Paciente:
-{session['nome']}
+1. O diagnóstico extraído do prontuário.
+2. Os dados do paciente.
+3. As respostas fornecidas durante a entrevista.
 
-Idade:
-{session['idade']}
+Dados do paciente
 
-Diagnóstico:
-{session['diagnostico']}
+Nome: {session['nome']}
+Idade: {session['idade']}
+Sexo: {session['sexo']}
+Diagnóstico: {session['diagnostico']}
+Retorno previsto: {session['retorno']}
 
-Respostas:
-{session['respostas']}
+Respostas da entrevista
+
+{json.dumps(session['respostas'], indent=2, ensure_ascii=False)}
+
+Com base nessas informações elabore um relatório contendo exatamente as seguintes seções:
+
+## Resumo Clínico
+Faça um breve resumo do caso.
+
+## Análise Clínica
+Explique o que as respostas do paciente indicam em relação ao diagnóstico existente.
+
+## Prognóstico
+Descreva a evolução clínica mais provável considerando as informações disponíveis.
+
+## Classificação de Risco
+Classifique o caso como:
+
+- Baixo
+- Moderado
+- Alto
+
+Explique por que essa classificação foi escolhida.
+
+## Conduta Recomendada
+Informe a orientação mais adequada entre:
+
+- Manter acompanhamento de rotina;
+- Antecipar consulta médica;
+- Encaminhar para avaliação urgente.
+
+Importante:
+
+- Não invente informações.
+- Baseie-se apenas nos dados recebidos.
+- Caso as informações sejam insuficientes, deixe isso explícito.
+- O texto deve ser técnico, claro e objetivo.
+- Não utilize Markdown nem emojis.
 """
 
-    return (
-        llm.invoke(prompt)
-        .content
-    )
+    return llm.invoke(prompt).content
+# def generate_summary(
+#     session
+# ):
+#
+#     llm = ChatOpenAI(
+#         model="gpt-3.5-turbo",
+#         temperature=0
+#     )
+#
+#     prompt = f"""
+# Você é uma assistente médica.
+#
+# Analise o quadro clínico do paciente considerando o diagnóstico extraído do prontuário e
+# todas as respostas fornecidas durante a triagem. Elabore um prognóstico, classifique o risco (baixo/médio/alto),
+# justifique a classificação e informe se há necessidade de contato imediato com a equipe médica ou
+#  apenas manutenção do acompanhamento.
+#
+# Paciente:
+# {session['nome']}
+#
+# Idade:
+# {session['idade']}
+#
+# Diagnóstico:
+# {session['diagnostico']}
+#
+# Respostas:
+# {session['respostas']}
+# """
+#
+#     return (
+#         llm.invoke(prompt)
+#         .content
+#     )
