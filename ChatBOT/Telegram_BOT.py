@@ -254,21 +254,28 @@ async def receive_document(
         file_path
     )
 
+    print("1 - Enviando mensagem de processamento...")
     await update.message.reply_text(
         "Processando documento..."
     )
-
+    print("Mensagem enviada.")
     try:
+        print(">>>> CHAMANDO load_file")
 
         load_file(
             user_id,
             file_path
         )
 
+        print("<<<< load_file TERMINOU")
+
+        print(">>>> CHAMANDO extract_patient_data")
         dados_paciente = extract_patient_data(
             user_id, vectorstores
         )
+        print("<<<< extract_patient_data TERMINOU")
 
+        print(">>>> CHAMANDO carregar_protocolo")
         protocolo = ProtocolRepository.carregar_protocolo(
 
             dados_paciente["especialidade"],
@@ -276,6 +283,7 @@ async def receive_document(
             dados_paciente["categoria"]
 
         )
+        print("<<<< carregar_protocolo TERMINOU")
 
         patient_sessions[user_id] = {
 
