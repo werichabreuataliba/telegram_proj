@@ -11,3 +11,4 @@ gradio
 python-telegram-bot
 paddleocr
 PyMuPDF
+paddlepaddle
