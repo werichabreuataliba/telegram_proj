@@ -27,8 +27,8 @@ from langchain.chains import (
     RetrievalQA
 )
 
-from DocumentProcessing.ProtocolRepository import ProtocolRepository
-from DocumentProcessing.DocumentProcessor import (
+from ChatBOT.DocumentProcessing.ProtocolRepository import ProtocolRepository
+from ChatBOT.DocumentProcessing.DocumentProcessor import (
     DocumentProcessor
 )
 document_processor = DocumentProcessor()
