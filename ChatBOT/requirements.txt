@@ -10,4 +10,4 @@ pypdf
 gradio
 python-telegram-bot
 paddleocr
-fitz
+PyMuPDF
