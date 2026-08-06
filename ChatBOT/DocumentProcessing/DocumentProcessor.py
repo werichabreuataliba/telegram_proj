@@ -10,8 +10,7 @@ from ChatBOT.DocumentProcessing.OCRProcessor import OCRProcessor
 class DocumentProcessor:
 
     def __init__(self):
-
-        self.ocr = OCRProcessor()
+        self.ocr = None
 
     def load(self, file_path):
 
@@ -54,6 +53,9 @@ class DocumentProcessor:
             return documents
 
         print("PDF escaneado.")
+
+        if self.ocr is None:
+            self.ocr = OCRProcessor()
 
         texto = self.ocr.extract_text(
             file_path
