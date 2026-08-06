@@ -46,7 +46,7 @@ from telegram.ext import (
     filters
 )
 
-from Uteis.Estrutura import extract_patient_data, patient_sessions, generate_summary
+from ChatBOT.Uteis.Estrutura import extract_patient_data, patient_sessions, generate_summary
 
 # ==========================================
 # Configuração
