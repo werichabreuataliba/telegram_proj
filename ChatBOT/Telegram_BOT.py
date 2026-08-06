@@ -27,7 +27,7 @@ from langchain.chains import (
     RetrievalQA
 )
 
-from ChatBOT.DocumentProcessing.ProtocolRepository import ProtocolRepository
+from DocumentProcessing.ProtocolRepository import ProtocolRepository
 from DocumentProcessing.DocumentProcessor import (
     DocumentProcessor
 )
@@ -46,7 +46,7 @@ from telegram.ext import (
     filters
 )
 
-from ChatBOT.Uteis.Estrutura import extract_patient_data, patient_sessions, generate_summary
+from Uteis.Estrutura import extract_patient_data, patient_sessions, generate_summary
 
 # ==========================================
 # Configuração
