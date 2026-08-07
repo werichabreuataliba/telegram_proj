@@ -11,7 +11,7 @@ class OCRProcessor:
     def __init__(self):
 
         self.ocr = PaddleOCR(
-            use_angle_cls=True,
+            use_angle_cls=False,
             lang="pt"
         )
 
@@ -53,7 +53,7 @@ class OCRProcessor:
 
             resultado = self.ocr.ocr(
                 image_file,
-                cls=True,
+                cls=False,
                 rec=True
             )
 
@@ -99,10 +99,7 @@ class OCRProcessor:
 
                         try:
 
-                            coordenadas = linha[0]
-
                             texto_ocr = linha[1][0]
-
                             confianca = linha[1][1]
 
                             print(
