@@ -56,7 +56,7 @@ class OCRProcessor:
 
                 resultado = self.ocr.ocr(
                     image_file,
-                    rec=True
+                    rec=False
                 )
 
                 print("OCR -> CHAMADA OCR RETORNOU", flush=True)
