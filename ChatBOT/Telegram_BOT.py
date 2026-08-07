@@ -194,6 +194,7 @@ async def start(
     update: Update,
     context: ContextTypes.DEFAULT_TYPE
 ):
+    print(">>> ENTROU NO HANDLER /start")
     await context.bot.send_message(
         chat_id=7749850190,
         text="Olá! Sou sua assistente virtual."
