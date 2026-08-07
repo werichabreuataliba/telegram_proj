@@ -43,9 +43,15 @@ class OCRProcessor:
 
             print("Chamando OCR...")
 
-            resultado = self.ocr.ocr(image_file)
+            print("OCR -> antes de chamar self.ocr.ocr()", flush=True)
 
-            print("OCR terminou")
+            resultado = self.ocr.ocr(
+                image_file,
+                cls=True
+            )
+
+            print("OCR -> self.ocr.ocr() terminou", flush=True)
+            print(f"OCR -> resultado recebido: {resultado is not None}", flush=True)
 
             print(type(resultado))
             print(resultado)
@@ -53,18 +59,33 @@ class OCRProcessor:
             print("Entrando no IF")
 
             if resultado:
-
-                print("Resultado não vazio")
+                print("OCR -> entrou no processamento do resultado", flush=True)
 
                 for bloco in resultado:
 
-                    print("Novo bloco")
+                    print("OCR -> processando bloco", flush=True)
 
                     for linha in bloco:
-                        print("Linha:", linha)
+                        print("OCR -> processando linha", flush=True)
 
                         texto += linha[1][0]
                         texto += "\n"
+
+            else:
+                print("OCR -> resultado vazio", flush=True)
+            # if resultado:
+            #
+            #     print("Resultado não vazio")
+            #
+            #     for bloco in resultado:
+            #
+            #         print("Novo bloco")
+            #
+            #         for linha in bloco:
+            #             print("Linha:", linha)
+            #
+            #             texto += linha[1][0]
+            #             texto += "\n"
 
             print("Removendo imagem")
 
