@@ -51,11 +51,19 @@ class OCRProcessor:
                 flush=True
             )
 
-            resultado = self.ocr.ocr(
-                image_file,
-                cls=False,
-                rec=True
-            )
+            try:
+                print("OCR -> ENTROU NO TRY DO OCR", flush=True)
+
+                resultado = self.ocr.ocr(
+                    image_file,
+                    rec=True
+                )
+
+                print("OCR -> CHAMADA OCR RETORNOU", flush=True)
+
+            except Exception as e:
+                print("OCR -> ERRO DENTRO DO OCR:", repr(e), flush=True)
+                raise
 
             print(
                 "OCR -> self.ocr.ocr() terminou",
