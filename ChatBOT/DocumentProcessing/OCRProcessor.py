@@ -46,7 +46,9 @@ class OCRProcessor:
             print("OCR -> antes de chamar self.ocr.ocr()", flush=True)
 
             resultado = self.ocr.ocr(
-                image_file
+                image_file,
+                cls=True,
+                rec=False
             )
 
             print("OCR -> self.ocr.ocr() terminou", flush=True)
