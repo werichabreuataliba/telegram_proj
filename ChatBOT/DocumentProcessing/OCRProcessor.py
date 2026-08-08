@@ -54,7 +54,8 @@ class OCRProcessor:
             try:
                 print("OCR -> ANTES DO self.ocr.ocr()")
 
-                resultado = self.ocr.ocr(image_file)
+                resultado = self.ocr.ocr(image_file,
+                rec=False)
 
                 print("OCR -> DEPOIS DO self.ocr.ocr()")
 
@@ -119,8 +120,9 @@ class OCRProcessor:
                                 flush=True
                             )
 
-                            texto += texto_ocr
-                            texto += "\n"
+                            # texto += texto_ocr
+                            texto += str(texto_ocr) + "\n"
+                            # texto += "\n"
 
                         except Exception as e:
 
