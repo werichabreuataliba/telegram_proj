@@ -54,8 +54,8 @@ class OCRProcessor:
             try:
                 print("OCR -> ANTES DO self.ocr.ocr()")
 
-                resultado = self.ocr.ocr(image_file,
-                rec=False)
+                resultado = self.ocr.ocr(image_file)
+                                # rec=False)
 
                 print("OCR -> DEPOIS DO self.ocr.ocr()")
 
