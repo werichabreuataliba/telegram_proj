@@ -19,6 +19,15 @@ def extract_patient_data(user_id, vectorstores):
         temperature=0
     )
 
+    docs = vectorstore.similarity_search(
+        "nome do paciente",
+        k=10
+    )
+
+    for doc in docs:
+        print("==========")
+        print(doc.page_content)
+
     qa = RetrievalQA.from_chain_type(
         llm=llm,
         retriever=vectorstore.as_retriever()
