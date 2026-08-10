@@ -96,6 +96,12 @@ def load_file(
     documents = document_processor.load(
         file_path
     )
+    print("========== TEXTO ANTES DO FAISS ==========", flush=True)
+
+    for doc in documents:
+        print(doc.page_content, flush=True)
+
+    print("========== FIM TEXTO ANTES DO FAISS ==========", flush=True)
 
     splitter = CharacterTextSplitter(
         chunk_size=1000,

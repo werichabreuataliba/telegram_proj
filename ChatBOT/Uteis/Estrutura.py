@@ -20,12 +20,12 @@ def extract_patient_data(user_id, vectorstores):
     )
 
     docs = vectorstore.similarity_search(
-        "nome do paciente",
+        "Nome do paciente",
         k=10
     )
 
     for doc in docs:
-        print("==========")
+        print("========== DOCUMENTO ==========")
         print(doc.page_content)
 
     qa = RetrievalQA.from_chain_type(

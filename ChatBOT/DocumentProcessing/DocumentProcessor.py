@@ -10,7 +10,7 @@ from ChatBOT.DocumentProcessing.OCRProcessor import OCRProcessor
 class DocumentProcessor:
 
     def __init__(self):
-        self.ocr = None
+        self.ocr = OCRProcessor()
 
     def load(self, file_path):
 
@@ -36,33 +36,71 @@ class DocumentProcessor:
         )
 
         documents = loader.load()
+        texto = "\n".join(doc.page_content for doc in documents)
 
-        texto = ""
+        print("========== TEXTO EXTRAÍDO ==========", flush=True)
+        print(texto, flush=True)
+        print("========== FIM TEXTO EXTRAÍDO ==========", flush=True)
 
-        for doc in documents:
-
-            texto += doc.page_content
-
-        #
-        # Existe texto suficiente?
-        #
-        if len(texto.strip()) > 100:
-
-            print("PDF contém texto.")
-
-            return documents
-
-        print("PDF escaneado.")
-
-        if self.ocr is None:
-            self.ocr = OCRProcessor()
-
-        texto = self.ocr.extract_text(
-            file_path
-        )
-
-        return [
-            Document(
-                page_content=texto
-            )
+        # Verifica se o texto extraído parece estar incompleto
+        campos_importantes = [
+            "NOME:",
+            "IDADE:",
+            "FUNÇÃO:",
+            "EMPRESA:"
         ]
+
+        texto_incompleto = sum(
+            campo not in texto.upper()
+            for campo in campos_importantes
+        ) >= 2
+
+        if texto_incompleto:
+            print("PDF -> texto aparentemente incompleto.", flush=True)
+            print("PDF -> será necessário OCR.", flush=True)
+
+            # Aqui chamamos seu OCRProcessor
+            texto_ocr = self.ocr.extract_text(file_path)
+
+            print("========== TEXTO OCR ==========", flush=True)
+            print(texto_ocr, flush=True)
+            print("========== FIM TEXTO OCR ==========", flush=True)
+
+            documents = [
+                Document(page_content=texto_ocr)
+            ]
+
+        else:
+            print("PDF -> texto aparentemente completo.", flush=True)
+
+        return documents
+
+        # texto = ""
+        #
+        # for doc in documents:
+        #
+        #     texto += doc.page_content
+        #
+        # #
+        # # Existe texto suficiente?
+        # #
+        # if len(texto.strip()) > 100:
+        #
+        #     print("PDF contém texto.")
+        #
+        #     return documents
+        #
+        # print("PDF escaneado.")
+        #
+        # if self.ocr is None:
+        #     self.ocr = OCRProcessor()
+        #
+        # texto = self.ocr.extract_text(
+        #     file_path
+        # )
+        #
+        # return [
+        #     Document(
+        #         page_content=texto
+        #     )
+        # ]
