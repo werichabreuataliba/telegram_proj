@@ -10,7 +10,7 @@ from ChatBOT.DocumentProcessing.OCRProcessor import OCRProcessor
 class DocumentProcessor:
 
     def __init__(self):
-        self.ocr = OCRProcessor()
+        self.ocr = None
 
     def load(self, file_path):
 
@@ -59,6 +59,8 @@ class DocumentProcessor:
             print("PDF -> texto aparentemente incompleto.", flush=True)
             print("PDF -> será necessário OCR.", flush=True)
 
+            if self.ocr is None:
+                self.ocr = OCRProcessor()
             # Aqui chamamos seu OCRProcessor
             texto_ocr = self.ocr.extract_text(file_path)
 
